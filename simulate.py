@@ -1,9 +1,8 @@
 from simulation import SIMULATION
 
 
-# import pybullet as p
-# import time
-# import pybullet_data
+
+
 # import pyrosim.pyrosim as pyrosim
 # import numpy as np
 # import random
@@ -11,12 +10,9 @@ from simulation import SIMULATION
 # from tempfile import TemporaryFile
 
 simulation = SIMULATION()
+simulation.Run()
 
-# physicsClient = p.connect(p.GUI)
 
-# p.setAdditionalSearchPath(pybullet_data.getDataPath())
-
-# p.setGravity(0,0,-9.8)
 
 # planeId = p.loadURDF("plane.urdf")
 # robotId = p.loadURDF("body.urdf")
