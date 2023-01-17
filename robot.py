@@ -7,6 +7,7 @@ import random
 import constants as c
 from tempfile import TemporaryFile
 import sensor
+import simulation
 
 class ROBOT:
 
@@ -14,6 +15,7 @@ class ROBOT:
         self.robotId = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
+        self.Prepare_To_Act()
 
         # self.backLegSensorValues = np.zeros(1000)
         # self.frontLegSensorValues = np.zeros(1000)
@@ -35,7 +37,7 @@ class ROBOT:
 
         # for t in range(1000):
         #     p.stepSimulation()
-        self.motors = {}
+    
         
         pass
 
@@ -46,6 +48,17 @@ class ROBOT:
             # print(linkName)
             self.sensor[linkName] = sensor.SENSOR(linkName)
     
-    # def Sense(self):
+    def Sense(self, t):
+        for sensor_instance in self.sensor.values():
+            # print(self.sensor)
+            # self.values[simulation.t] = sensor.Get_value[sensor]
+            sensor_instance.Get_Value(t)
     #     self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
-    #     self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")   
+    #     self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg") 
+    # 
+    def Prepare_To_Act(self):
+        self.motor = {}
+        for jointName in pyrosim.jointNamesToIndices:
+
+            # print(linkName)
+            self.motor[jointName] = sensor.SENSOR(jointName)  
