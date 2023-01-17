@@ -7,6 +7,7 @@ import random
 import constants as c
 from tempfile import TemporaryFile
 import sensor
+import motor
 import simulation
 
 class ROBOT:
@@ -61,4 +62,8 @@ class ROBOT:
         for jointName in pyrosim.jointNamesToIndices:
 
             # print(linkName)
-            self.motor[jointName] = sensor.SENSOR(jointName)  
+            self.motor[jointName] = motor.MOTOR(jointName)  
+
+    def Act(self, t):
+        for motor_instance in self.motor.values():
+            motor_instance.Set_Value(self.robotId, t)

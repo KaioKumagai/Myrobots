@@ -24,6 +24,7 @@ class SIMULATION:
             # print(t)
             p.stepSimulation()
             self.robot.Sense(t)
+            self.robot.Act(t)
             
             
             # self.robot.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
