@@ -18,21 +18,18 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
 
-        # self.backLegSensorValues = np.zeros(1000)
-        # self.frontLegSensorValues = np.zeros(1000)
         self.values = np.zeros(1000)
-        # print(self.values)
+        
+        # self.targetAngles_backLeg = np.zeros(1000)
+        # self.a = np.linspace(0, 2*np.pi, 1000)
+        # for i in range(1000):
+        #     self.targetAngles_backLeg[i] = c.amplitude_backLeg*np.sin(self.a[i]*c.frequency_backLeg + c.phaseOffset_backLeg)
 
-        self.targetAngles_backLeg = np.zeros(1000)
-        self.a = np.linspace(0, 2*np.pi, 1000)
-        for i in range(1000):
-            self.targetAngles_backLeg[i] = c.amplitude_backLeg*np.sin(self.a[i]*c.frequency_backLeg + c.phaseOffset_backLeg)
 
-
-        self.targetAngles_frontLeg = np.zeros(1000)
-        self.a = np.linspace(0, 2*np.pi, 1000)
-        for i in range(1000):
-            self.targetAngles_frontLeg[i] = c.amplitude_frontLeg*np.sin(self.a[i]*c.frequency_frontLeg + c.phaseOffset_frontLeg)
+        # self.targetAngles_frontLeg = np.zeros(1000)
+        # self.a = np.linspace(0, 2*np.pi, 1000)
+        # for i in range(1000):
+        #     self.targetAngles_frontLeg[i] = c.amplitude_frontLeg*np.sin(self.a[i]*c.frequency_frontLeg + c.phaseOffset_frontLeg)
 
         # outfile = TemporaryFile()
 

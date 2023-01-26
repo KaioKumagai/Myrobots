@@ -20,4 +20,17 @@ class SENSOR:
         # print(f'{self.linkName=}: {self.values[t]=}')
         if t == 999:
             # print('World')
+            g =+ 1
             print(self.values)
+
+    def Save_Values(self, g):
+        if g == 1:
+            backLegSensorValues = self.values
+            np.save('data/backLegSensorValues.npy',backLegSensorValues)
+        if g == 2:
+            TorsoSensorValues = self.values
+            np.save('data/TorsoSensorValues.npy',TorsoSensorValues)
+        if g == 3:
+            frontLegSensorValues = self.values
+            np.save('data/frontLegSensorValues.npy',frontLegSensorValues)
+      
