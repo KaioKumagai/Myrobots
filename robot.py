@@ -9,6 +9,8 @@ from tempfile import TemporaryFile
 import sensor
 import motor
 import simulation
+from pyrosim.neuralNetwork import NEURAL_NETWORK
+
 
 class ROBOT:
 
@@ -19,6 +21,7 @@ class ROBOT:
         self.Prepare_To_Act()
 
         self.values = np.zeros(1000)
+        self.nn = NEURAL_NETWORK("brain.nndf")
         
         # self.targetAngles_backLeg = np.zeros(1000)
         # self.a = np.linspace(0, 2*np.pi, 1000)
@@ -62,5 +65,11 @@ class ROBOT:
             self.motor[jointName] = motor.MOTOR(jointName)  
 
     def Act(self, t):
-        for motor_instance in self.motor.values():
-            motor_instance.Set_Value(self.robotId, t)
+        for neuronName in self.nn.Get_Neuron_Names():
+        
+            # for motor_instance in self.motor.values():
+            #     motor_instance.Set_Value(self.robotId, t)
+
+    def Think(self):
+        self.nn.Update()
+        self.nn.Print()

@@ -27,6 +27,7 @@ class SIMULATION:
             # g = 0
             p.stepSimulation()
             self.robot.Sense(t)
+            self.robot.Think()
             self.robot.Act(t)
             
             
@@ -46,7 +47,7 @@ class SIMULATION:
             # controlMode = p.POSITION_CONTROL,
             # targetPosition= self.robot.targetAngles_frontLeg[t],
             # maxForce = 500)
-            
+
             # self.sensor.Save_Values(self)
 
             time.sleep(1/60)

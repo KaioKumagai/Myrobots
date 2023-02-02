@@ -14,3 +14,14 @@ phaseOffset_backLeg = 0
 amplitude_frontLeg = np.pi
 frequency_frontLeg = 15
 phaseOffset_frontLeg = 0
+
+length = 1
+width = 1
+height = 1
+
+Link0 = [1.0,0,1.5]
+Link1 = [-0.5,0,-0.5]
+Link2 = [0.5,0,-0.5]
+
+Link0_Link1 = [0.5,0,1]
+Link0_Link2 = [1.5,0,1]
