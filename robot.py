@@ -66,9 +66,11 @@ class ROBOT:
 
     def Act(self, t):
         for neuronName in self.nn.Get_Neuron_Names():
+            print(neuronName)
         
             # for motor_instance in self.motor.values():
             #     motor_instance.Set_Value(self.robotId, t)
+    
 
     def Think(self):
         self.nn.Update()
