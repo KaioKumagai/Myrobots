@@ -21,7 +21,7 @@ class SIMULATION:
         # self.sensor = sensor.SENSOR()
 
     def Run(self):
-        for t in range(1000):
+        for t in range(500):
 
             # print(t)
             # g = 0
