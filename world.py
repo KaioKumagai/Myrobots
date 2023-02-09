@@ -13,7 +13,7 @@ class WORLD:
         width = 1
         height = 1
     
-        pyrosim.Send_Cube(name="Box", pos=[3,3,1] , size=[length,width,height]) 
+        pyrosim.Send_Cube(name="Box", pos=[3,3,0.5] , size=[length,width,height]) 
 
         pyrosim.End()
 

@@ -15,7 +15,7 @@ class MOTOR:
 
         self.amplitude_backLeg = c.amplitude_backLeg
         print(self.jointName)
-        if self.jointName == b'Torso_FrontLeg':
+        if self.jointName == "Torso_FrontLeg":
             self.frequency_backLeg = (1/2)*c.frequency_backLeg
         else:
             self.frequency_backLeg = c.frequency_backLeg
