@@ -14,7 +14,7 @@ class MOTOR:
         # self.Prepare_To_Act()
 
         self.amplitude_backLeg = c.amplitude_backLeg
-        print(self.jointName)
+        # print(self.jointName)
         if self.jointName == "Torso_FrontLeg":
             self.frequency_backLeg = (1/2)*c.frequency_backLeg
         else:
@@ -45,6 +45,6 @@ class MOTOR:
             controlMode = p.POSITION_CONTROL,
             # targetPosition= self.targetAngles_backLeg[desiredAngle],
             targetPosition = desiredAngle,
-            maxForce = 500)
+            maxForce = 50)
 
             
