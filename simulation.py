@@ -21,7 +21,7 @@ class SIMULATION:
         # self.sensor = sensor.SENSOR()
 
     def Run(self):
-        for t in range(500):
+        for t in range(1000):
 
             # print(t)
             # g = 0
@@ -51,6 +51,9 @@ class SIMULATION:
             # self.sensor.Save_Values(self)
 
             time.sleep(1/60)
+    
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
 
     def __del__(self):
 

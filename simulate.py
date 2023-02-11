@@ -9,9 +9,10 @@ from robot import ROBOT
 # import random
 # import constants as c
 # from tempfile import TemporaryFile
-
-simulation = SIMULATION()
-simulation.Run()
+if __name__ == '__main__':
+    simulation = SIMULATION()
+    simulation.Run()
+    simulation.Get_Fitness()
 
 
 
