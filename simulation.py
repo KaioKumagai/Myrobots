@@ -5,12 +5,28 @@ import world
 import robot
 import pyrosim.pyrosim as pyrosim
 import sensor
+import sys
+
+
+# physicsClient = p.connect(p.GUI)
+
+# p.setAdditionalSearchPath(pybullet_data.getDataPath())
+
+# p.setGravity(0,0,-9.8)
+
+# self.planeId = p.loadURDF("plane.urdf")
+#         p.loadSDF("world.sdf")
 
 class SIMULATION:
 
-    def __init__(self):
+    def __init__(self, directOrGUI):
 
-        physicsClient = p.connect(p.GUI)
+        self.directOrGUI = directOrGUI
+
+        if directOrGUI == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
 
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
@@ -50,7 +66,7 @@ class SIMULATION:
 
             # self.sensor.Save_Values(self)
 
-            time.sleep(1/60)
+            time.sleep(1/100)
     
     def Get_Fitness(self):
         self.robot.Get_Fitness()

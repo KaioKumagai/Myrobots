@@ -1,18 +1,17 @@
 import solution
 import pyrosim.pyrosim as pyrosim
 import constants as c 
-
-# copy
+import copy
 
 class HILL_CLIMBER:
 
     def __init__(self):
         self.parent = solution.SOLUTION()
 
-        pass
 
     def Evolve(self):
-        self.parent.Evaluate()
+        self.parent.Evaluate("GUI")
+        # self.parent.Evaluate("DIRECT")
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
 
@@ -21,19 +20,43 @@ class HILL_CLIMBER:
 
         self.Mutate()
 
-        self.child.Evaluate()
+        self.child.Evaluate("DIRECT")
+       
+        self.Print()
 
         self.Select()
+        
     
     def Spawn(self):
-        pass
+
+        self.child = copy.deepcopy(self.parent)
+        
 
     def Mutate(self):
-        pass
+
+        self.child.Mutate()
+        # print(f'Parents weights are {self.parent.weights}')
+        # print(f'Parents weights are {self.child.weights}')
+        # exit()
+        
 
     def Select(self):
+        # print(f'Parent fitness is {self.parent.fitness}')
+        # print(f'Child fitness is {self.child.fitness}')
+        if self.child.fitness < self.parent.fitness:
+            self.parent = self.child
+            print('this happened')
+        # print(f'Winning generation is {self.parent.fitness}')
+        # exit()
+        # pass
+
+    def Print(self):
+        print(f'Parent fitness is {self.parent.fitness} and Child fitness is {self.child.fitness}')
+        # pass
+
+    def Show_Best(self):
+        self.parent.Evaluate("GUI")
         pass
-        
             
         
 

@@ -1,7 +1,6 @@
+import sys
 from simulation import SIMULATION
 from robot import ROBOT
-
-
 
 
 # import pyrosim.pyrosim as pyrosim
@@ -10,9 +9,15 @@ from robot import ROBOT
 # import constants as c
 # from tempfile import TemporaryFile
 if __name__ == '__main__':
-    simulation = SIMULATION()
+    directOrGUI =  sys.argv[1]
+    simulation = SIMULATION(directOrGUI)
     simulation.Run()
     simulation.Get_Fitness()
+
+# directOrGUI =  sys.argv[1]
+# simulation = SIMULATION(directOrGUI)
+# simulation.Run()
+# simulation.Get_Fitness()
 
 
 

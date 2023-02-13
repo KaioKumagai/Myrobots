@@ -1,7 +1,7 @@
 import numpy as np
 import pyrosim.pyrosim as pyrosim
-import pybullet_data
 import pybullet as p
+import pybullet_data
 import random
 import constants as c
 import os
@@ -17,8 +17,12 @@ class SOLUTION:
         # print(self.weights)
         # exit()
 
-    def Evaluate(self):
-        os.system("py simulate.py")
+    def Evaluate(self, directOrGUI):
+        os.system("py simulate.py " + directOrGUI)
+        self.Create_World()
+        self.Create_Body()
+        self.Create_Brain()
+
         f = open("fitness.txt", "r")
         self.fitness = float(f.read())
         # print(type(self.fitness))
@@ -28,6 +32,11 @@ class SOLUTION:
 
     def Create_World(self):
         # def __init__(self):
+        # physicsClient = p.connect(p.GUI)
+
+        # p.setAdditionalSearchPath(pybullet_data.getDataPath())
+
+        # p.setGravity(0,0,-9.8)
 
         pyrosim.Start_SDF("world.sdf")
 
@@ -40,8 +49,8 @@ class SOLUTION:
         pyrosim.End()
 
         
-        self.planeId = p.loadURDF("plane.urdf")
-        p.loadSDF("world.sdf")
+        # self.planeId = p.loadURDF("plane.urdf")
+        # p.loadSDF("world.sdf")
         
         
 
@@ -70,3 +79,9 @@ class SOLUTION:
                 pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn +3, weight = self.weights[currentRow][currentColumn] )
        
         pyrosim.End()  
+
+    def Mutate(self):
+        randomRow =  random.randint(0,2)
+        randomColumn = random.randint(0,1)
+        self.weights[randomRow,randomColumn] =  random.random() * 2 - 1
+        # pass

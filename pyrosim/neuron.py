@@ -55,9 +55,9 @@ class NEURON:
         # print(neurons)
         # print(synapses)
         # exit()
-        print(f'Currently updating neuron before for loop is {self.Get_Name()} and its value is {self.Get_Value()}')
+        # print(f'Currently updating neuron before for loop is {self.Get_Name()} and its value is {self.Get_Value()}')
         for key in synapses.keys():
-            print(f'Current synapse is {key} pre synapse is {key[0]} post is {key[1]}')
+            # print(f'Current synapse is {key} pre synapse is {key[0]} post is {key[1]}')
             if key[1] == self.Get_Name():
                 weight = synapses[key].Get_Weight()
                 # value = self.Get_Value()
@@ -70,13 +70,13 @@ class NEURON:
                 # exit()
         
         self.Threshold()
-        print(f'Currently updating neuron after for loop is {self.Get_Name()} and its value is {self.Get_Value()}')
+        # print(f'Currently updating neuron after for loop is {self.Get_Name()} and its value is {self.Get_Value()}')
         
         # exit()
     
     def Allow_Presynaptic_Neuron_To_Influence_Me(self, weight,value):
-        print(f'Weight is {weight}')
-        print(f'Value is {value}')
+        # print(f'Weight is {weight}')
+        # print(f'Value is {value}')
         addition = weight*value
         self.Add_To_Value(addition)
         # exit()
