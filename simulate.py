@@ -27,23 +27,23 @@ if __name__ == '__main__':
 # p.loadSDF("world.sdf")
 # pyrosim.Prepare_To_Simulate(robotId)
 
-# backLegSensorValues = np.zeros(1000)
-# frontLegSensorValues = np.zeros(1000)
+# backLegSensorValues = np.zeros(2500)
+# frontLegSensorValues = np.zeros(2500)
 
-# targetAngles_backLeg = np.zeros(1000)
-# a = np.linspace(0, 2*np.pi, 1000)
-# for i in range(1000):
+# targetAngles_backLeg = np.zeros(2500)
+# a = np.linspace(0, 2*np.pi, 2500)
+# for i in range(2500):
 #     targetAngles_backLeg[i] = c.amplitude_backLeg*np.sin(a[i]*c.frequency_backLeg + c.phaseOffset_backLeg)
 
 
-# targetAngles_frontLeg = np.zeros(1000)
-# a = np.linspace(0, 2*np.pi, 1000)
-# for i in range(1000):
+# targetAngles_frontLeg = np.zeros(2500)
+# a = np.linspace(0, 2*np.pi, 2500)
+# for i in range(2500):
 #     targetAngles_frontLeg[i] = c.amplitude_frontLeg*np.sin(a[i]*c.frequency_frontLeg + c.phaseOffset_frontLeg)
 
 # outfile = TemporaryFile()
 
-# for t in range(1000):
+# for t in range(2500):
 #     p.stepSimulation()
     
 #     backLegSensorValues[t] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")

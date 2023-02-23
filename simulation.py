@@ -37,7 +37,7 @@ class SIMULATION:
         # self.sensor = sensor.SENSOR()
 
     def Run(self):
-        for t in range(1000):
+        for t in range(2500):
 
             # print(t)
             # g = 0
@@ -65,8 +65,8 @@ class SIMULATION:
             # maxForce = 500)
 
             # self.sensor.Save_Values(self)
-
-            time.sleep(1/100)
+            if self.directOrGUI == "GUI":
+                time.sleep(1/240)   
     
     def Get_Fitness(self):
         self.robot.Get_Fitness()
