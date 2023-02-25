@@ -1,5 +1,5 @@
 import os
-import generate
+# import generate
 import simulate
 # import hillclimber
 import parallelhillclimber

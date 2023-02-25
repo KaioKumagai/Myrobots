@@ -15,7 +15,7 @@ import random
 
 
 def Generate_Body():
-    pyrosim.Start_URDF("body.urdf")
+    # pyrosim.Start_URDF("body.urdf")
     pyrosim.Send_Cube(name="Torso", pos=c.Link0 , size=[c.length,c.width,c.height])  
     pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = c.Link0_Link1)
     pyrosim.Send_Cube(name="BackLeg", pos=c.Link1 , size=[c.length,c.width,c.height]) 

@@ -28,4 +28,4 @@ Link0_Link2 = [1.5,0,1]
 
 numberOfGenerations = 10
 
-populationSize = 2
+populationSize = 10

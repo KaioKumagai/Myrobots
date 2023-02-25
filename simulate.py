@@ -10,9 +10,11 @@ import pyrosim
 # import constants as c
 # from tempfile import TemporaryFile
 if __name__ == '__main__':
+    # pyrosim.Start_SDF("world.sdf")
+    # pyrosim.Start_URDF("body.urdf")
     directOrGUI =  sys.argv[1]
     solutionID = sys.argv[2]
-    # pyrosim.Start_SDF("world.sdf")
+   
     simulation = SIMULATION(directOrGUI, solutionID)
     
     simulation.Run()

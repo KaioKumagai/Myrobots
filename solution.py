@@ -73,16 +73,19 @@ class SOLUTION:
         # p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         # p.setGravity(0,0,-9.8)
+        if self.myID == 0:
+            pyrosim.Start_SDF("world.sdf")
 
-        pyrosim.Start_SDF("world.sdf")
-
-        length = 1
-        width = 1
-        height = 1
+            length = 1
+            width = 1
+            height = 1
     
-        pyrosim.Send_Cube(name="Box", pos=[3,3,0.5] , size=[length,width,height]) 
+            pyrosim.Send_Cube(name="Box", pos=[3,3,0.5] , size=[length,width,height]) 
 
-        pyrosim.End()
+            pyrosim.End()
+        while not os.path.exists("world.sdf"):
+            time.sleep(0.01)
+        # pyrosim.End()
 
         
         # self.planeId = p.loadURDF("plane.urdf")
@@ -93,14 +96,19 @@ class SOLUTION:
         pass
 
     def Create_Body(self):
-        pyrosim.Start_URDF("body.urdf")
-        pyrosim.Send_Cube(name="Torso", pos=c.Link0 , size=[c.length,c.width,c.height])  
-        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = c.Link0_Link1)
-        pyrosim.Send_Cube(name="BackLeg", pos=c.Link1 , size=[c.length,c.width,c.height]) 
-        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = c.Link0_Link2)
-        pyrosim.Send_Cube(name="FrontLeg", pos=c.Link2 , size=[c.length,c.width,c.height]) 
-
-        pyrosim.End()  
+        if self.myID == 0:
+            pyrosim.Start_URDF("body.urdf")
+            pyrosim.Send_Cube(name="Torso", pos=c.Link0 , size=[c.length,c.width,c.height])  
+            pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = c.Link0_Link1)
+            pyrosim.Send_Cube(name="BackLeg", pos=c.Link1 , size=[c.length,c.width,c.height]) 
+            pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = c.Link0_Link2)
+            pyrosim.Send_Cube(name="FrontLeg", pos=c.Link2 , size=[c.length,c.width,c.height]) 
+            pyrosim.End()  
+        
+            
+        while not os.path.exists("world.sdf"):
+            time.sleep(0.01)
+        
 
     def Create_Brain(self):
         brainID = 'brain' + str(self.myID) + '.nndf'
