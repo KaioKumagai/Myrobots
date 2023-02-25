@@ -5,30 +5,65 @@ import pybullet_data
 import random
 import constants as c
 import os
+import time
 
 class SOLUTION:
 
-    def __init__(self):
+    def __init__(self, nextAvailableID):
 
         self.weights = np.random.rand(3,2)
         # print(self.weights)
         self.weights = self.weights * 2 - 1
+        self.myID = nextAvailableID
 
         # print(self.weights)
         # exit()
+
+    def set_ID(self, newID):
+        self.myID = newID
+        pass
 
     def Evaluate(self, directOrGUI):
         
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("py simulate.py " + directOrGUI)
+        # os.system("py simulate.py " + directOrGUI)
+        os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID))
 
-        f = open("fitness.txt", "r")
+        while not os.path.exists("fitness" +str(self.myID)+ ".txt"):
+
+            time.sleep(0.01)
+
+        f = open("fitness" +str(self.myID)+ ".txt", "r")
         self.fitness = float(f.read())
+        print(f"fitness is {self.fitness}")
         # print(type(self.fitness))
         # print(self.fitness)
         f.close()
+
+    def Start_Simulation(self, directOrGUI):
+        self.Create_World()
+        self.Create_Body()
+        self.Create_Brain()
+        # os.system("py simulate.py " + directOrGUI)
+        os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID))
+        
+
+    def  Wait_For_Simulation_To_End(self):
+        while not os.path.exists("fitness" +str(self.myID)+ ".txt"):
+
+            time.sleep(0.01)
+
+        fitnessID = "fitness" +str(self.myID)+ ".txt"
+        f = open("fitness" +str(self.myID)+ ".txt", "r")
+        self.fitness = float(f.read())
+        # print(f"fitness is {self.fitness}")
+        
+        f.close()
+        # del "fitness" + str(self.myID) + ".txt"
+        os.system(f"del fitness{str(self.myID)}.txt")
+        # del fitnessID
         
 
     def Create_World(self):
@@ -68,7 +103,9 @@ class SOLUTION:
         pyrosim.End()  
 
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        brainID = 'brain' + str(self.myID) + '.nndf'
+        # print(f'BrainID is {brainID}')
+        pyrosim.Start_NeuralNetwork(brainID)
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")   
         pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")   
         pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")    
@@ -88,4 +125,5 @@ class SOLUTION:
         randomColumn = random.randint(0,1)
         # self.weights[randomRow,randomColumn] =  random.random() * 2 - 1
         self.weights[randomRow,randomColumn] =  random.gauss()
+        # print("this happened")
         # pass

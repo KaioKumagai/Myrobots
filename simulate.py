@@ -1,6 +1,7 @@
 import sys
 from simulation import SIMULATION
 from robot import ROBOT
+import pyrosim
 
 
 # import pyrosim.pyrosim as pyrosim
@@ -10,7 +11,10 @@ from robot import ROBOT
 # from tempfile import TemporaryFile
 if __name__ == '__main__':
     directOrGUI =  sys.argv[1]
-    simulation = SIMULATION(directOrGUI)
+    solutionID = sys.argv[2]
+    # pyrosim.Start_SDF("world.sdf")
+    simulation = SIMULATION(directOrGUI, solutionID)
+    
     simulation.Run()
     simulation.Get_Fitness()
 

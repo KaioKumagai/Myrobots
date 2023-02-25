@@ -26,4 +26,6 @@ Link2 = [0.5,0,-0.5]
 Link0_Link1 = [0.5,0,1]
 Link0_Link2 = [1.5,0,1]
 
-numberOfGenerations = 1000
+numberOfGenerations = 10
+
+populationSize = 2
