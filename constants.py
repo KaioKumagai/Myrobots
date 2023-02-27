@@ -8,7 +8,6 @@ import random
 gravity = -9.8
 amplitude_backLeg = np.pi/10
 frequency_backLeg = 15
-# phaseOffset_backLeg = np.pi/8
 phaseOffset_backLeg = 0
 
 amplitude_frontLeg = np.pi
@@ -26,6 +25,6 @@ Link2 = [0.5,0,-0.5]
 Link0_Link1 = [0.5,0,1]
 Link0_Link2 = [1.5,0,1]
 
-numberOfGenerations = 10
+numberOfGenerations = 5
 
-populationSize = 10
+populationSize = 100
