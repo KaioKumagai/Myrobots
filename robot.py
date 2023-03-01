@@ -22,7 +22,8 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
 
-        self.values = np.zeros(2500)
+        # self.values = np.zeros(3500)
+        self.values = np.zeros(c.timeofsimulation)
         brainID = 'brain' + str(solutionID) + '.nndf'
         self.nn = NEURAL_NETWORK(brainID)
         os.system(f"del brain{str(self.solutionID)}.nndf")
@@ -50,7 +51,7 @@ class ROBOT:
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                desiredAngle = self.nn.Get_Value_Of(neuronName)*c.motorJointRange
                 
                 self.motor[jointName.encode('UTF-8')].Set_Value(self.robotId, desiredAngle )
 

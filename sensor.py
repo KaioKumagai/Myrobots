@@ -5,12 +5,14 @@ import pybullet_data
 import robot
 import pyrosim.pyrosim as pyrosim
 import numpy as np
+import constants as c
 class SENSOR:
 
     def __init__(self, name):
 
         self.linkName = name
-        self.values = np.zeros(2500)
+        # self.values = np.zeros(3500)
+        self.values = np.zeros(c.timeofsimulation)
 
     def Get_Value(self, t):
 

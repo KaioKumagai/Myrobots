@@ -5,6 +5,7 @@ import robot
 import pyrosim.pyrosim as pyrosim
 import sensor
 import sys
+import constants as c
 
 
 class SIMULATION:
@@ -29,7 +30,8 @@ class SIMULATION:
         self.robot = robot.ROBOT(solutionID)
 
     def Run(self):
-        for t in range(2500):
+        # for t in range(3500):
+        for t in range(c.timeofsimulation):
 
             p.stepSimulation()
             self.robot.Sense(t)
