@@ -20,9 +20,6 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID += 1
 
 
-
-
-
     def Evolve(self):
 
         self.Evaluate(self.parents)
@@ -71,7 +68,6 @@ class PARALLEL_HILL_CLIMBER:
 
     def Mutate(self):
 
-        # self.child.Mutate()
         for child in self.children:
             self.children[child].Mutate()
         

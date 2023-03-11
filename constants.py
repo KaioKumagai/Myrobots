@@ -70,15 +70,15 @@ Link1_Link6 = [0,-1,0] #backleg to lower back leg
 Link4_Link7 = [1,0,0] #rightleg to lower right leg
 Link3_Link8 = [-1,0,0] #leftleg to lower left leg
 
-numberOfGenerations = 50
+numberOfGenerations = 1
 
-populationSize = 10
+populationSize = 1
 
-timeofsimulation = 2000
+timeofsimulation = 5000
 
-motorJointRange = 0.2
+motorJointRange = 0.5
 
-# numSensorNeurons = 9
+# numSensorNeurons = 4
+# numMotorNeurons = 8
 
-numSensorNeurons = 4
-numMotorNeurons = 8
+Number_of_Links = 5

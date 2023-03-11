@@ -22,7 +22,6 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
 
-        # self.values = np.zeros(3500)
         self.values = np.zeros(c.timeofsimulation)
         brainID = 'brain' + str(solutionID) + '.nndf'
         self.nn = NEURAL_NETWORK(brainID)
@@ -54,6 +53,7 @@ class ROBOT:
                 desiredAngle = self.nn.Get_Value_Of(neuronName)*c.motorJointRange
                 
                 self.motor[jointName.encode('UTF-8')].Set_Value(self.robotId, desiredAngle )
+                # self.motor[jointName].Set_Value(self.robotId, desiredAngle )
 
 
         
