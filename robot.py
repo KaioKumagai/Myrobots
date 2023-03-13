@@ -60,6 +60,11 @@ class ROBOT:
     
 
     def Think(self):
+
+        # print(' here')
+        # print(self.nn)
+
+
         self.nn.Update()
 
     def Get_Fitness(self):

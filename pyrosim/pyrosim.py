@@ -108,8 +108,8 @@ def Prepare_To_Simulate(bodyID):
 
     Prepare_Joint_Dictionary(bodyID)
 
+# def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1], colorString='    <color rgba="0 1 1 1.0"/>', colorName='<material name="Cyan">'):
 def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1], colorString='    <color rgba="0 1 1 1.0"/>', colorName='<material name="Cyan">'):
-
     global availableLinkIndex
 
     global links

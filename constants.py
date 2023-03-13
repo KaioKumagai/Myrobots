@@ -81,4 +81,4 @@ motorJointRange = 0.5
 # numSensorNeurons = 4
 # numMotorNeurons = 8
 
-Number_of_Links = 5
+Number_of_Links = 10

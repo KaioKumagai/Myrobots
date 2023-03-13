@@ -7,18 +7,56 @@ import constants as c
 import os
 import time
 
+def Link_position_from_joint(link_size: list[float], 
+                             direction: str):
+    if direction == 'x':
+        link_Width = random.uniform(-link_size[1]/2,link_size[1]/2)
+        link_Height =  random.uniform(-link_size[2]/2,link_size[2]/2)
+        position = [link_size[0]/2,link_Width,link_Height]
+        return position
+    if direction == '-x':
+        link_Width = random.uniform(-link_size[1]/2,link_size[1]/2)
+        link_Height = random.uniform(-link_size[2]/2,link_size[2]/2)
+        position = [-link_size[0]/2,link_Width,link_Height]
+        return position
+    if direction == 'y':
+        link_Length =  random.uniform(-link_size[0]/2,link_size[0]/2)
+        link_Height =  random.uniform(-link_size[2]/2,link_size[2]/2)
+        position = [link_Length,link_size[1]/2,link_Height]
+        return position
+    if direction == '-y':
+        link_Length = random.uniform(-link_size[0]/2,link_size[0]/2)
+        link_Height = random.uniform(-link_size[2]/2,link_size[2]/2)
+        position = [link_Length,-link_size[1]/2,link_Height]
+        return position
+    if direction == 'z':
+        link_Length = random.uniform(-link_size[0]/2,link_size[0]/2)
+        link_Width = random.uniform(-link_size[1]/2,link_size[1]/2)
+        position = [link_Length,link_Width, link_size[2]/2]
+        return position
+    if direction == '-z':
+        link_Length = random.uniform(-link_size[0]/2,link_size[0]/2)
+        link_Width = random.uniform(-link_size[1]/2,link_size[1]/2)
+        position = [link_Length,link_Width, -link_size[2]/2]
+        return position
+
+def Absolute_position(i: int, Links_dimensions: list[float]):
+    sum = [0,0,0]
+    for a in range(i):
+        sum[0] += Links_dimensions[a][0] 
+        sum[1] += Links_dimensions[a][1]
+        sum[2] += Links_dimensions[a][2]
+    return sum
+
 class SOLUTION:
 
-    Links_with_Sensors = []
-    Links_Dimensions = {}
-    Links_Min_Max = {}
-    
     def __init__(self, nextAvailableID):
 
         
         self.myID = nextAvailableID
         self.Links_with_Sensors = []
         self.Links_Dimensions = {}
+        self.jointAxis = "0 1 0"
         self.Number_of_Sensors = 0
         self.counter_for_motors = 0
         
@@ -80,7 +118,7 @@ class SOLUTION:
                     if prev == [1,0,0] and new == [-1,0,0] or prev == [-1,0,0] and new == [1,0,0] or prev == [0,1,0] and new == [0,-1,0] or prev == [0,-1,0] and new == [0,1,0] or prev == [0,0,1] and new == [0,0,-1] or prev==[0,0,-1] and new == [0,0,1]:
                         return None
                     return [(prev[i]+new[i])/2 for i in [0,1,2]]
-
+    
     def Create_Body(self):
         if self.myID == 0:
             length = 1
@@ -104,8 +142,6 @@ class SOLUTION:
                 Child_Name = 'Link' + str(i+1)
                 Joint_Name = Parent_Name + '_' + Child_Name
                 
-                jointAxis = "0 1 0"
-                
                 # child_length = 1
                 # child_width = 1
                 # child_height = 1
@@ -120,30 +156,34 @@ class SOLUTION:
                     else:
                         self.Links_Dimensions[link] = [child_length,child_width,child_height]  
                 
+                Link_size = [child_length, child_width, child_height]
                 parent_dimentions = self.Links_Dimensions[i]
                 parent_length = parent_dimentions[0]
                 parent_width = parent_dimentions[1]
                 parent_height = parent_dimentions[2]                          
 
-                if direction == 'x':
-                    Link_position = [child_length/2,0,0]
-                if direction =='-x':
-                    Link_position = [-child_length/2,0,0]
-                if direction == 'y':
-                    Link_position = [0, child_width/2, 0]
-                if direction == '-y':
-                    Link_position = [0, -child_width/2, 0]
-                if direction == 'z':
-                    Link_position = [0,0,child_height/2]
-                if direction == '-z':
-                    Link_position = [0,0,-child_height/2]
+                Link_position = Link_position_from_joint(Link_size, direction)
+                # Absolute_pos = Absolute_position(i,self.Links_Dimensions)
+                # print(Absolute_pos)
+
+                # if direction == 'x':
+                #     Link_position = [child_length/2,0,0]
+                # if direction =='-x':
+                #     Link_position = [-child_length/2,0,0]
+                # if direction == 'y':
+                #     Link_position = [0, child_width/2, 0]
+                # if direction == '-y':
+                #     Link_position = [0, -child_width/2, 0]
+                # if direction == 'z':
+                #     Link_position = [0,0,child_height/2]
+                # if direction == '-z':
+                #     Link_position = [0,0,-child_height/2]
                 
                 
 
                 dif = self.diff(direction, direction:=random.choice(['x', 'y', 'z', '-x', '-y', '-z']))
                 while dif == None:
-                    print('Happening')
-                    dif = self.diff(direction, direction:=random.choice(['x', 'y', 'z', '-x', '-y', '-z']))
+                   dif = self.diff(direction, direction:=random.choice(['x', 'y', 'z', '-x', '-y', '-z']))
 
 
                 if direction == 'x':
@@ -172,7 +212,7 @@ class SOLUTION:
                     Joint_position[1] = Joint_position[1] + random.uniform(-parent_width/2,parent_width/2)
                 
 
-                Link_size = [child_length, child_width, child_height]
+                
                 
                 altitude = altitude - min(Joint_position[2],0)
 
@@ -201,44 +241,44 @@ class SOLUTION:
                                         child = Child_Name,
                                         type = type_movement, 
                                         position = Joint_position,
-                                        jointAxis = jointAxis)
+                                        jointAxis = self.jointAxis)
         
-                # First Cube
+            # First Cube
 
-                if direction0 == 'x':
-                    Joint_position0 = [length/2,0,altitude]
-                if direction0 == '-x':
-                    Joint_position0 = [-length/2,0,altitude]
-                if direction0 == 'y':
-                    Joint_position0 = [0, width/2, altitude]
-                if direction0 == '-y':
-                    Joint_position0 = [0, -width/2, altitude]
-                if direction0 == 'z':
-                    Joint_position0 = [0,0,height/2+altitude]
-                if direction0 == '-z':
-                    Joint_position0 = [0,0,-height/2+altitude]
-                    
-                if self.Links_with_Sensors[0] == 1:
-                    pyrosim.Send_Cube(  name = 'Link0',
-                                        pos = [0, 0, altitude],
-                                        size = [length, width, height],
-                                        colorString = '    <color rgba="0 1 0 1.0"/>',
-                                        colorName = '<material name="Green">') 
-                    
-                if self.Links_with_Sensors[0] == 0:
-                    pyrosim.Send_Cube(  name = 'Link0',
-                                        pos = [0, 0, altitude],
-                                        size = [length, width, height],
-                                        colorString = '    <color rgba="0 0 1 1.0"/>',
-                                        colorName = '<material name="Blue">')   
-                    
-                pyrosim.Send_Joint(     name = 'Link0_Link1',
-                                        parent = 'Link0',
-                                        child = 'Link1',
-                                        type = type_movement, 
-                                        position = Joint_position0,
-                                        jointAxis = jointAxis)
-                pyrosim.End()  
+            if direction0 == 'x':
+                Joint_position0 = [length/2,0,altitude]
+            if direction0 == '-x':
+                Joint_position0 = [-length/2,0,altitude]
+            if direction0 == 'y':
+                Joint_position0 = [0, width/2, altitude]
+            if direction0 == '-y':
+                Joint_position0 = [0, -width/2, altitude]
+            if direction0 == 'z':
+                Joint_position0 = [0,0,height/2+altitude]
+            if direction0 == '-z':
+                Joint_position0 = [0,0,-height/2+altitude]
+                
+            if self.Links_with_Sensors[0] == 1:
+                pyrosim.Send_Cube(  name = 'Link0',
+                                    pos = [0, 0, altitude],
+                                    size = [length, width, height],
+                                    colorString = '    <color rgba="0 1 0 1.0"/>',
+                                    colorName = '<material name="Green">') 
+                
+            if self.Links_with_Sensors[0] == 0:
+                pyrosim.Send_Cube(  name = 'Link0',
+                                    pos = [0, 0, altitude],
+                                    size = [length, width, height],
+                                    colorString = '    <color rgba="0 0 1 1.0"/>',
+                                    colorName = '<material name="Blue">')   
+                
+            pyrosim.Send_Joint(     name = 'Link0_Link1',
+                                    parent = 'Link0',
+                                    child = 'Link1',
+                                    type = type_movement, 
+                                    position = Joint_position0,
+                                    jointAxis = self.jointAxis)
+            pyrosim.End()  
 
 
     # def Create_Body(self):
@@ -290,61 +330,37 @@ class SOLUTION:
         for i in range(c.Number_of_Links):
             
             if self.Links_with_Sensors[i] == 1:
-                name = str(self.counter_for_motors)
-                self.counter_for_motors += 1
+                # name = str(self.counter_for_motors)
+                
                 linkName = "Link" + str(i)
                 self.Number_of_Sensors += 1
-                pyrosim.Send_Sensor_Neuron(name = name , linkName = linkName)
+                pyrosim.Send_Sensor_Neuron(name = self.counter_for_motors , linkName = linkName)
+                self.counter_for_motors += 1
                           
         for i in range(c.Number_of_Links-1):
-            name =self.counter_for_motors+i
+            # name =str(self.counter_for_motors+i)
+            self.counter_for_motors += 1
             Parent_Name = 'Link' + str(i)
             Child_Name = 'Link' + str(i+1)
             Joint_Name = Parent_Name + '_' + Child_Name
-            pyrosim.Send_Motor_Neuron( name = name , jointName = Joint_Name)
+            pyrosim.Send_Motor_Neuron( name = self.counter_for_motors , jointName = Joint_Name)
             
         self.weights = np.random.rand(self.Number_of_Sensors,c.Number_of_Links-1)
         for currentRow in range(self.Number_of_Sensors):
-            for currentColumn in range(c.Number_of_Links-1 ):
+            for currentColumn in range(c.Number_of_Links-1):
                 pyrosim.Send_Synapse( sourceNeuronName = currentRow , 
                                      targetNeuronName = currentColumn + self.Number_of_Sensors, 
                                      weight = self.weights[currentRow][currentColumn] )
        
-        pyrosim.End()  
-   
-    # def Create_Brain(self):
-    #     brainID = 'brain' + str(self.myID) + '.nndf'
-    #     pyrosim.Start_NeuralNetwork(brainID)
+        pyrosim.End()
 
-    #     for i in range(c.Number_of_Links):
-            
-    #         if self.Links_with_Sensors[i] == 1:
-    #             name = str(self.counter_for_motors)
-    #             self.counter_for_motors += 1
-    #             linkName = "Link" + str(i)
-    #             Number_of_Sensors += 1
-    #             pyrosim.Send_Sensor_Neuron(name = name , linkName = linkName)
-                          
-    #     for i in range(c.Number_of_Links-1):
-    #         name =self.counter_for_motors+i
-    #         Parent_Name = 'Link' + str(i+1)
-    #         Child_Name = 'Link' + str(i+2)
-    #         Joint_Name = Parent_Name + '_' + Child_Name
-    #         pyrosim.Send_Motor_Neuron( name = name , jointName = Joint_Name)
-    #         pass
-    #     self.weights = np.random.rand(Number_of_Sensors,c.Number_of_Links-1)
-    #     for currentRow in range(Number_of_Sensors):
-    #         for currentColumn in range(c.Number_of_Links-1 ):
-    #             pyrosim.Send_Synapse( sourceNeuronName = currentRow , 
-    #                                  targetNeuronName = currentColumn + Number_of_Sensors, 
-    #                                  weight = self.weights[currentRow][currentColumn] )
-       
-    #     pyrosim.End()  
-        
+        # print(self.weights)
+
+        # print(self.Number_of_Sensors)
 
     def Mutate(self):
         randomRow =  random.randint(0,self.Number_of_Sensors-1)
-        randomColumn = random.randint(0,c.Number_of_Links-1)
+        randomColumn = random.randint(0,c.Number_of_Links-2)
 
         self.weights[randomRow,randomColumn] =  random.gauss()
 
