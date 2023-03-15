@@ -1,9 +1,5 @@
 # Myrobots
 
-*hg*
-
-## **gjy**
-
 ## GIF / Teaser:
 
 https://youtu.be/gMeGmIDQW6w
