@@ -16,7 +16,7 @@ import os
 class ROBOT:
 
     def __init__(self, solutionID):
-        self.robotId = p.loadURDF("body.urdf")
+        self.robotId = p.loadURDF('body' + str(solutionID) +'.urdf')
         self.solutionID = solutionID
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
@@ -55,10 +55,6 @@ class ROBOT:
                 self.motor[jointName.encode('UTF-8')].Set_Value(self.robotId, desiredAngle )
                 # self.motor[jointName].Set_Value(self.robotId, desiredAngle )
 
-
-        
-    
-
     def Think(self):
 
         # print(' here')
@@ -68,10 +64,9 @@ class ROBOT:
         self.nn.Update()
 
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robotId,0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        xyz = p.getBasePositionAndOrientation(self.robotId)[0]
+        xCoordinate = xyz[0]
         f = open("tmp" + str(self.solutionID) + ".txt", "w")
-        f.write(str(xCoordinateOfLinkZero))
+        f.write(str(xCoordinate))
         f.close()
         os.rename("tmp"+str(self.solutionID)+".txt" , "fitness"+str(self.solutionID)+".txt")

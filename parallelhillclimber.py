@@ -3,6 +3,8 @@ import pyrosim.pyrosim as pyrosim
 import constants as c
 import copy
 import os
+import pickle
+import numpy as np
 
 class PARALLEL_HILL_CLIMBER:
 
@@ -10,10 +12,17 @@ class PARALLEL_HILL_CLIMBER:
         for file in os.listdir():
             if file.startswith("brain"):
                 os.system("del brain*.nndf")
+                pass
+            if file.startswith("body"):
+                os.system("del body*.urdf")
+                pass
             if file.startswith("fitness"):
                 os.system("del fitness*.txt")
+                pass
         self.parents = {}
         self.nextAvailableID = 0
+        self.Best_generations = []
+        self.All_fitness_per_gen = [0]*c.populationSize
 
         for i in range(c.populationSize):
             self.parents[i] = solution.SOLUTION(self.nextAvailableID)
@@ -74,26 +83,52 @@ class PARALLEL_HILL_CLIMBER:
 
 
     def Select(self):
-
+        Best_fitness = 0
+        Fitness_per_generation = []
         for parent in self.parents:
+            self.All_fitness_per_gen[parent] = self.children[parent].fitness
             if self.children[parent].fitness < self.parents[parent].fitness:
                 self.parents[parent] = self.children[parent]
 
-       
+            # if self.children[parent].fitness < Best_fitness:
+            #         Best_fitness = self.children[parent].fitness
+        self.Best_generations.append(min(self.All_fitness_per_gen))
+
+    def Get_Best_generations(self):
+        # print(self.Best_generations)
+        return self.Best_generations
 
     def Print(self):
         for parent in self.parents:
             print("\n")
             print(f'Parent fitness is {self.parents[parent].fitness} and Child fitness is {self.children[parent].fitness}')
             print("\n")
+            # print(self.Best_generations)
        
 
     def Show_Best(self):
+        for file in os.listdir():
+            if file.startswith("brain"):
+                os.system("del brain*.nndf")
+                pass
+            if file.startswith("body"):
+                os.system("del body*.urdf")
+                pass
+            if file.startswith("fitness"):
+                os.system("del fitness*.txt")
+                pass
         current = 0
         for parent in self.parents:
             if self.parents[parent].fitness < current:
                 current = parent
         self.parents[current].Start_Simulation("GUI")
+
+        with open('links10.pkl', 'wb') as f:
+            pickle.dump(self.parents[current].links, f)
+        with open('joints10.pkl', 'wb') as f:
+            pickle.dump(self.parents[current].joints, f)
+        np.save('weights10.npy', self.parents[current].weights)
+
         
 
 
