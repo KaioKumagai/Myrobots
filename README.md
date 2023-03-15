@@ -6,7 +6,12 @@ https://youtu.be/gMeGmIDQW6w
 
 ## Video:
 
-https://youtu.be/AWHy4YXkl5I
+https://youtu.be/AWHy4YXkl5I[cartoon.pdf]
+
+## Cartoon:
+
+(https://github.com/KaioKumagai/Myrobots/files/10975850/cartoon.pdf)
+
 
 ## Methods:
 
