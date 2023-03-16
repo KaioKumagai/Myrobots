@@ -6,7 +6,9 @@ https://youtu.be/gMeGmIDQW6w
 
 ## Video:
 
-https://youtu.be/AWHy4YXkl5I[cartoon.pdf]
+https://youtu.be/AWHy4YXkl5I
+
+[cartoon.pdf]
 
 ## Cartoon:
 
